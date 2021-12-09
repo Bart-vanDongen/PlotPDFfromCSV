@@ -5,13 +5,13 @@ from scipy import stats as s
 import sys
 
 
-def PDFplotfromCSV(file, column = []):
-    data = pd.read_csv(file)
+def plot_pdf_csv(csv_file, column=[]):
+    data = pd.read_csv(csv_file)
     # Loop over all the headers in the csv file to make plots for everything
     for i in data.head():
-        if(column == [] or i in column):
-            dataSelected = i
-            values = data[dataSelected]
+        if column == [] or i in column:
+            data_selected = i
+            values = data[data_selected]
             plot = pd.DataFrame(values).plot(kind='kde')
 
             # Calculate the median, Mode and mean using statistics and stats from scipy
@@ -28,14 +28,10 @@ def PDFplotfromCSV(file, column = []):
 
             # make a plot and save it as png
             plt.plot(data=plot)
-            plt.savefig("{}.png".format(dataSelected))
-
-
-
+            plt.savefig("{}.png".format(data_selected))
 
 
 file = sys.argv[1]
 columns = sys.argv[2:]
 
-PDFplotfromCSV(file, columns)
-
+plot_pdf_csv(file, columns)
